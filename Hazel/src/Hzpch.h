@@ -1,7 +1,5 @@
 #pragma once
 
-#define no_init_all
-
 #include <iostream>
 #include <memory>
 #include <utility>
