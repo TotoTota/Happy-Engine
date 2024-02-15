@@ -3,7 +3,7 @@
 class ExampleLayer : public Hazel::Layer
 {
 public:
-	ExampleLayer() 
+	ExampleLayer()
 		: Layer("Example")
 	{
 	}
@@ -13,23 +13,27 @@ public:
 		HZ_INFO("ExampleLayer::Update");
 	}
 
-	void OnEvent(Hazel::Event& event) override 
+	void OnEvent(Hazel::Event& event) override
 	{
 		HZ_TRACE("{0}", event);
 	}
+
 };
 
-class Sandbox : public Hazel::Application {
+class Sandbox : public Hazel::Application
+{
 public:
-	Sandbox() 
+	Sandbox()
 	{
 		PushLayer(new ExampleLayer());
 		PushOverlay(new Hazel::ImGuiLayer());
 	}
 
-	~Sandbox() {
+	~Sandbox()
+	{
 
 	}
+
 };
 
 Hazel::Application* Hazel::CreateApplication()
