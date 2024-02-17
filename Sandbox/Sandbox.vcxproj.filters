@@ -17,11 +17,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Hazel\src">
-      <Filter>..\Hazel</Filter>
-    </None>
-    <None Include="..\src">
-      <Filter>..</Filter>
-    </None>
+    <None Include="imgui.ini" />
   </ItemGroup>
 </Project>
