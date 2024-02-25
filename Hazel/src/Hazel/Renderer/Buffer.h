@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Hazel{
+namespace Hazel {
 
 	enum class ShaderDataType
 	{
@@ -11,24 +11,24 @@ namespace Hazel{
 	{
 		switch (type)
 		{
-		case Hazel::ShaderDataType::Float:  return 4;
-		case Hazel::ShaderDataType::Float2: return 4 * 2;
-		case Hazel::ShaderDataType::Float3: return 4 * 3;
-		case Hazel::ShaderDataType::Float4: return 4 * 4;
-		case Hazel::ShaderDataType::Mat3:   return 4 * 3 * 3;
-		case Hazel::ShaderDataType::Mat4:   return 4 * 4 * 4;
-		case Hazel::ShaderDataType::Int:    return 4;
-		case Hazel::ShaderDataType::Int2:   return 4 * 2;
-		case Hazel::ShaderDataType::Int3:   return 4 * 3;
-		case Hazel::ShaderDataType::Int4:   return 4 * 4;
-		case Hazel::ShaderDataType::Bool:   return 1;
+			case ShaderDataType::Float:    return 4;
+			case ShaderDataType::Float2:   return 4 * 2;
+			case ShaderDataType::Float3:   return 4 * 3;
+			case ShaderDataType::Float4:   return 4 * 4;
+			case ShaderDataType::Mat3:     return 4 * 3 * 3;
+			case ShaderDataType::Mat4:     return 4 * 4 * 4;
+			case ShaderDataType::Int:      return 4;
+			case ShaderDataType::Int2:     return 4 * 2;
+			case ShaderDataType::Int3:     return 4 * 3;
+			case ShaderDataType::Int4:     return 4 * 4;
+			case ShaderDataType::Bool:     return 1;
 		}
 
 		HZ_CORE_ASSERT(false, "Unknown ShaderDataType!");
 		return 0;
 	}
 
-	struct BufferElement 
+	struct BufferElement
 	{
 		std::string Name;
 		ShaderDataType Type;
@@ -38,7 +38,7 @@ namespace Hazel{
 
 		BufferElement() {}
 
-		BufferElement(ShaderDataType type, const std::string name, bool normalized = false)
+		BufferElement(ShaderDataType type, const std::string& name, bool normalized = false)
 			: Name(name), Type(type), Size(ShaderDataTypeSize(type)), Offset(0), Normalized(normalized)
 		{
 		}
@@ -47,28 +47,31 @@ namespace Hazel{
 		{
 			switch (Type)
 			{
-				case Hazel::ShaderDataType::Float:     return 1;
-				case Hazel::ShaderDataType::Float2:    return 2;
-				case Hazel::ShaderDataType::Float3:    return 3;
-				case Hazel::ShaderDataType::Float4:    return 4;
-				case Hazel::ShaderDataType::Mat3:      return 3 * 3;
-				case Hazel::ShaderDataType::Mat4:      return 4 * 4;
-				case Hazel::ShaderDataType::Int:       return 1;
-				case Hazel::ShaderDataType::Int2:      return 2;
-				case Hazel::ShaderDataType::Int3:      return 3;
-				case Hazel::ShaderDataType::Int4:      return 4;
-				case Hazel::ShaderDataType::Bool:      return 1;
+				case ShaderDataType::Float:   return 1;
+				case ShaderDataType::Float2:  return 2;
+				case ShaderDataType::Float3:  return 3;
+				case ShaderDataType::Float4:  return 4;
+				case ShaderDataType::Mat3:    return 3 * 3;
+				case ShaderDataType::Mat4:    return 4 * 4;
+				case ShaderDataType::Int:     return 1;
+				case ShaderDataType::Int2:    return 2;
+				case ShaderDataType::Int3:    return 3;
+				case ShaderDataType::Int4:    return 4;
+				case ShaderDataType::Bool:    return 1;
 			}
+
+			HZ_CORE_ASSERT(false, "Unknown ShaderDataType!");
+			return 0;
 		}
 	};
 
-	class BufferLayout 
+	class BufferLayout
 	{
 	public:
 		BufferLayout() {}
 
 		BufferLayout(const std::initializer_list<BufferElement>& elements)
-			: m_Elements(elements) 
+			: m_Elements(elements)
 		{
 			CalculateOffsetsAndStride();
 		}
@@ -81,11 +84,11 @@ namespace Hazel{
 		std::vector<BufferElement>::const_iterator begin() const { return m_Elements.begin(); }
 		std::vector<BufferElement>::const_iterator end() const { return m_Elements.end(); }
 	private:
-		void CalculateOffsetsAndStride() 
+		void CalculateOffsetsAndStride()
 		{
 			uint32_t offset = 0;
 			m_Stride = 0;
-			for (auto& element : m_Elements) 
+			for (auto& element : m_Elements)
 			{
 				element.Offset = offset;
 				offset += element.Size;
@@ -97,7 +100,7 @@ namespace Hazel{
 		uint32_t m_Stride = 0;
 	};
 
-	class VertexBuffer 
+	class VertexBuffer
 	{
 	public:
 		virtual ~VertexBuffer() = default;
@@ -106,15 +109,15 @@ namespace Hazel{
 		virtual void Unbind() const = 0;
 
 		virtual const BufferLayout& GetLayout() const = 0;
-		virtual void SetLayout(const BufferLayout layout) = 0;
+		virtual void SetLayout(const BufferLayout& layout) = 0;
 
 		static VertexBuffer* Create(float* vertices, uint32_t size);
 	};
 
-	class IndexBuffer 
+	class IndexBuffer
 	{
 	public:
-		virtual ~IndexBuffer() {}
+		virtual ~IndexBuffer() = default;
 
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;

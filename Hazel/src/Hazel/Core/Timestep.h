@@ -2,7 +2,7 @@
 
 namespace Hazel {
 
-	class Timestep 
+	class Timestep
 	{
 	public:
 		Timestep(float time = 0.0f)

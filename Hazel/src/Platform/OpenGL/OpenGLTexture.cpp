@@ -12,24 +12,24 @@ namespace Hazel {
 	{
 		int width, height, channels;
 		stbi_set_flip_vertically_on_load(1);
-		stbi_uc* data = stbi_load(path.c_str(), &width,& height, &channels, 0);
-		HZ_CORE_ASSERT(data, "failed to load image !");
+		stbi_uc* data = stbi_load(path.c_str(), &width, &height, &channels, 0);
+		HZ_CORE_ASSERT(data, "Failed to load image!");
 		m_Width = width;
 		m_Height = height;
 
 		GLenum internalFormat = 0, dataFormat = 0;
-		if (channels == 4) 
+		if (channels == 4)
 		{
 			internalFormat = GL_RGBA8;
 			dataFormat = GL_RGBA;
 		}
-		else if (channels == 3) 
+		else if (channels == 3)
 		{
 			internalFormat = GL_RGB8;
 			dataFormat = GL_RGB;
 		}
 
-		HZ_CORE_ASSERT(internalFormat && dataFormat, "Format not supported!");
+		HZ_CORE_ASSERT(internalFormat & dataFormat, "Format not supported!");
 
 		glCreateTextures(GL_TEXTURE_2D, 1, &m_RendererID);
 		glTextureStorage2D(m_RendererID, 1, internalFormat, m_Width, m_Height);
@@ -51,5 +51,4 @@ namespace Hazel {
 	{
 		glBindTextureUnit(slot, m_RendererID);
 	}
-
 }

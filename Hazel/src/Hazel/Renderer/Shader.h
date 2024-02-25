@@ -5,7 +5,7 @@
 
 namespace Hazel {
 
-	class Shader 
+	class Shader
 	{
 	public:
 		virtual ~Shader() = default;
@@ -19,7 +19,7 @@ namespace Hazel {
 		static Ref<Shader> Create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);
 	};
 
-	class ShaderLibrary 
+	class ShaderLibrary
 	{
 	public:
 		void Add(const std::string& name, const Ref<Shader>& shader);
@@ -33,4 +33,5 @@ namespace Hazel {
 	private:
 		std::unordered_map<std::string, Ref<Shader>> m_Shaders;
 	};
+
 }
