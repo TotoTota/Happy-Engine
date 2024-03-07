@@ -13,10 +13,11 @@ public:
 
 	void OnUpdate(Hazel::Timestep ts) override;
 	virtual void OnImGuiRender() override;
-	void OnEvent(Hazel::Event& event) override;
+	void OnEvent(Hazel::Event& e) override;
 private:
 	Hazel::OrthographicCameraController m_CameraController;
-
+	
+	// Temp
 	Hazel::Ref<Hazel::VertexArray> m_SquareVA;
 	Hazel::Ref<Hazel::Shader> m_FlatColorShader;
 
