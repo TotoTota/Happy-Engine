@@ -1,15 +1,12 @@
-# Liberty
-Liberty Engine
+# Happy
+Happy Engine
 
 
+![Happy](https://github.com/TotoTota/Liberty-Engine/assets/124183283/c828dea8-f1f9-4ce4-9a28-0bf789e265e1)
 
-![Liberty Engine Logo](https://github.com/TotoTota/Hazel/assets/124183283/6f1c1d3f-a5a3-4882-b397-8c7736979903)
+# What is Happy Engine
 
-![Liberty Engine Text](https://github.com/TotoTota/Hazel/assets/124183283/42b80c21-6b89-4394-a2ad-418a9ffbfd43)
-
-# What is Liberty Engine
-
-Liberty Engine is a game engine that supports 2d and 3d graphis, The engine uses C# to code game logic, This engine started with the chero's
+Happy Engine is a game engine that supports 2d and 3d graphis, The engine uses C# to code game logic, This engine started with the cherno's
 game engine series.
 
 # What Did I change from the cherno's game engine series
@@ -19,7 +16,7 @@ and make a release.
 
 # Installation Process
 
-Download the latest [release](https://github.com/TotoTota/Liberty/Release) of Liberty Engine, open the exe file
+Download the latest [release](https://github.com/TotoTota/Liberty/Release) of Happy Engine, open the exe file
 and use the engine as you like !
 
 # Future Updates
