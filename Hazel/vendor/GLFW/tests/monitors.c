@@ -28,8 +28,7 @@
 //
 //========================================================================
 
-#include <glad/gl.h>
-#define GLFW_INCLUDE_NONE
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 #include <stdio.h>
@@ -94,16 +93,13 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 static void list_modes(GLFWmonitor* monitor)
 {
     int count, x, y, width_mm, height_mm, i;
-    int workarea_x, workarea_y, workarea_width, workarea_height;
     float xscale, yscale;
-
     const GLFWvidmode* mode = glfwGetVideoMode(monitor);
     const GLFWvidmode* modes = glfwGetVideoModes(monitor, &count);
 
     glfwGetMonitorPos(monitor, &x, &y);
     glfwGetMonitorPhysicalSize(monitor, &width_mm, &height_mm);
     glfwGetMonitorContentScale(monitor, &xscale, &yscale);
-    glfwGetMonitorWorkarea(monitor, &workarea_x, &workarea_y, &workarea_width, &workarea_height);
 
     printf("Name: %s (%s)\n",
            glfwGetMonitorName(monitor),
@@ -114,8 +110,6 @@ static void list_modes(GLFWmonitor* monitor)
 
     printf("Physical size: %i x %i mm (%0.2f dpi)\n",
            width_mm, height_mm, mode->width * 25.4f / width_mm);
-    printf("Monitor work area: pos=(%d,%d)  size=(%dx%d)\n",
-            workarea_x, workarea_y, workarea_width, workarea_height);
 
     printf("Modes:\n");
 
@@ -167,7 +161,7 @@ static void test_modes(GLFWmonitor* monitor)
         glfwSetKeyCallback(window, key_callback);
 
         glfwMakeContextCurrent(window);
-        gladLoadGL(glfwGetProcAddress);
+        gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
         glfwSwapInterval(1);
 
         glfwSetTime(0.0);

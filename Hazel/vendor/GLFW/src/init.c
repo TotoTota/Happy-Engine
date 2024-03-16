@@ -1,12 +1,8 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
-
 //========================================================================
-// GLFW 3.4 - www.glfw.org
+// GLFW 3.3 - www.glfw.org
 //------------------------------------------------------------------------
 // Copyright (c) 2002-2006 Marcus Geelnard
-// Copyright (c) 2006-2018 Camilla Löwy <elmindreda@glfw.org>
+// Copyright (c) 2006-2016 Camilla Löwy <elmindreda@glfw.org>
 //
 // This software is provided 'as-is', without any express or implied
 // warranty. In no event will the authors be held liable for any damages
@@ -27,8 +23,6 @@
 // 3. This notice may not be removed or altered from any source
 //    distribution.
 //
-//========================================================================
-// Please use C89 style variable declarations in this file because VS 2010
 //========================================================================
 
 #include "internal.h"
@@ -123,30 +117,6 @@ char* _glfw_strdup(const char* source)
     char* result = calloc(length + 1, 1);
     strcpy(result, source);
     return result;
-}
-
-float _glfw_fminf(float a, float b)
-{
-    if (a != a)
-        return b;
-    else if (b != b)
-        return a;
-    else if (a < b)
-        return a;
-    else
-        return b;
-}
-
-float _glfw_fmaxf(float a, float b)
-{
-    if (a != a)
-        return b;
-    else if (b != b)
-        return a;
-    else if (a > b)
-        return a;
-    else
-        return b;
 }
 
 

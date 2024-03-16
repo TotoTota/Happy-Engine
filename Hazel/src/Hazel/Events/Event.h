@@ -1,19 +1,9 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
-
-
 #pragma once
 #include "hzpch.h"
 
 #include "Hazel/Core/Core.h"
 
 namespace Hazel {
-
-	// Events in Hazel are currently blocking, meaning when an event occurs it
-	// immediately gets dispatched and must be dealt with right then an there.
-	// For the future, a better strategy might be to buffer events in an event
-	// bus and process them during the "event" part of the update stage.
 
 	enum class EventType
 	{
@@ -43,6 +33,8 @@ namespace Hazel {
 	class Event
 	{
 	public:
+		virtual ~Event() = default;
+
 		bool Handled = false;
 
 		virtual EventType GetEventType() const = 0;

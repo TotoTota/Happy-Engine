@@ -1,7 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
-
 #include "hzpch.h"
 #include "Platform/Windows/WindowsWindow.h"
 
@@ -181,6 +177,11 @@ namespace Hazel {
 		HZ_PROFILE_FUNCTION();
 
 		glfwPollEvents();
+
+		// float titleBarHeight;
+		// UI_DrawTitlebar(titleBarHeight);
+		// ImGui::SetCursorPosY(titleBarHeight);
+
 		m_Context->SwapBuffers();
 	}
 

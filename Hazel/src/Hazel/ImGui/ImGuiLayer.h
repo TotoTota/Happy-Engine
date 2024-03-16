@@ -1,8 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
-
-
 #pragma once
 
 #include "Hazel/Core/Layer.h"
@@ -22,9 +17,14 @@ namespace Hazel {
 		virtual void OnAttach() override;
 		virtual void OnDetach() override;
 
+		virtual void OnEvent(Event& e) override;
+
 		void Begin();
 		void End();
+
+		void BlockEvents(bool block) { m_BlockEvents = block; }
 	private:
+		bool m_BlockEvents = true;
 		float m_Time = 0.0f;
 	};
 

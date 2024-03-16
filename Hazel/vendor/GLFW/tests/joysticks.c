@@ -28,8 +28,7 @@
 //
 //========================================================================
 
-#include <glad/gl.h>
-#define GLFW_INCLUDE_NONE
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 #define NK_IMPLEMENTATION
@@ -86,7 +85,7 @@ static void joystick_callback(int jid, int event)
         glfwRequestWindowAttention(window);
 }
 
-static void drop_callback(GLFWwindow* window, int count, const char* paths[])
+static void drop_callback(GLFWwindow* window, int count, const char** paths)
 {
     int i;
 
@@ -158,13 +157,13 @@ static void hat_widget(struct nk_context* nk, unsigned char state)
         const struct nk_vec2 p2 = nk_vec2(-radius / 2.f, -radius / 3.f);
 
         nk_fill_triangle(nk_window_get_canvas(nk),
-                         center.x + cosa * p0.x + sina * p0.y,
-                         center.y + cosa * p0.y - sina * p0.x,
-                         center.x + cosa * p1.x + sina * p1.y,
-                         center.y + cosa * p1.y - sina * p1.x,
-                         center.x + cosa * p2.x + sina * p2.y,
-                         center.y + cosa * p2.y - sina * p2.x,
-                         nk_rgb(175, 175, 175));
+                            center.x + cosa * p0.x + sina * p0.y,
+                            center.y + cosa * p0.y - sina * p0.x,
+                            center.x + cosa * p1.x + sina * p1.y,
+                            center.y + cosa * p1.y - sina * p1.x,
+                            center.x + cosa * p2.x + sina * p2.y,
+                            center.y + cosa * p2.y - sina * p2.x,
+                            nk_rgb(175, 175, 175));
     }
 }
 
@@ -191,7 +190,7 @@ int main(void)
     }
 
     glfwMakeContextCurrent(window);
-    gladLoadGL(glfwGetProcAddress);
+    gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
     glfwSwapInterval(1);
 
     nk = nk_glfw3_init(window, NK_GLFW3_INSTALL_CALLBACKS);
