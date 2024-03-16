@@ -16,7 +16,7 @@ and make a release.
 
 # Installation Process
 
-Download the latest [release](https://github.com/TotoTota/Liberty/Release) of Happy Engine, open the exe file
+Download the latest [release](https://github.com/TotoTota/Happy-Engine/releases) of Happy Engine, open the exe file
 and use the engine as you like !
 
 # Future Updates
