@@ -1,7 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
-
 #include "hzpch.h"
 #include "Platform/OpenGL/OpenGLShader.h"
 
@@ -210,7 +206,6 @@ namespace Hazel {
 
 		UploadUniformInt(name, value);
 	}
-
 
 	void OpenGLShader::SetIntArray(const std::string& name, int* values, uint32_t count)
 	{

@@ -1,8 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
-
-
 #pragma once
 
 #include "Hazel/Events/Event.h"
@@ -13,7 +8,7 @@ namespace Hazel {
 	class KeyEvent : public Event
 	{
 	public:
-		inline KeyCode GetKeyCode() const { return m_KeyCode; }
+		KeyCode GetKeyCode() const { return m_KeyCode; }
 
 		EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
 	protected:
@@ -29,7 +24,7 @@ namespace Hazel {
 		KeyPressedEvent(KeyCode keycode, int repeatCount)
 			: KeyEvent(keycode), m_RepeatCount(repeatCount) {}
 
-		inline int GetRepeatCount() const { return m_RepeatCount; }
+		int GetRepeatCount() const { return m_RepeatCount; }
 
 		std::string ToString() const override
 		{

@@ -1,18 +1,19 @@
 #pragma once
 
-#include "Hazel/Core/Core.h"
+#include "Hazel/Core/Base.h"
 
 namespace Hazel {
 
-	struct FramebufferSpecification 
+	struct FramebufferSpecification
 	{
 		uint32_t Width, Height;
+		// FramebufferFormat Format = 
 		uint32_t Samples = 1;
 
 		bool SwapChainTarget = false;
 	};
 
-	class Framebuffer 
+	class Framebuffer
 	{
 	public:
 		virtual ~Framebuffer() = default;
@@ -28,5 +29,6 @@ namespace Hazel {
 
 		static Ref<Framebuffer> Create(const FramebufferSpecification& spec);
 	};
+
 
 }
