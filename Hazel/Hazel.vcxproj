@@ -181,7 +181,10 @@
     <ClInclude Include="src\Hazel\Renderer\Texture.h" />
     <ClInclude Include="src\Hazel\Renderer\VertexArray.h" />
     <ClInclude Include="src\Hazel\Scene\Components.h" />
+<<<<<<< HEAD
     <ClInclude Include="src\Hazel\Scene\Entity.h" />
+=======
+>>>>>>> ba8db8c0353feb32340e45ebb5c67567a9f04da0
     <ClInclude Include="src\Hazel\Scene\Scene.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
@@ -577,7 +580,10 @@
     <ClCompile Include="src\Hazel\Renderer\SubTexture2D.cpp" />
     <ClCompile Include="src\Hazel\Renderer\Texture.cpp" />
     <ClCompile Include="src\Hazel\Renderer\VertexArray.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="src\Hazel\Scene\Entity.cpp" />
+=======
+>>>>>>> ba8db8c0353feb32340e45ebb5c67567a9f04da0
     <ClCompile Include="src\Hazel\Scene\Scene.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />

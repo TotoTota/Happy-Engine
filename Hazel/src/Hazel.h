@@ -18,7 +18,10 @@
 #include "Hazel/ImGui/ImGuiLayer.h"
 
 #include "Hazel/Scene/Scene.h"
+<<<<<<< HEAD
 #include "Hazel/Scene/Entity.h"
+=======
+>>>>>>> ba8db8c0353feb32340e45ebb5c67567a9f04da0
 #include "Hazel/Scene/Components.h"
 
 // ---Renderer------------------------

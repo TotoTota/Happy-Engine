@@ -24,6 +24,7 @@ namespace Hazel {
 
 		m_ActiveScene = CreateRef<Scene>();
 
+<<<<<<< HEAD
 		auto square = m_ActiveScene->CreateEntity("Green Square");
 		square.AddComponent<SpriteRendererComponent>(glm::vec4{0.0f, 1.0f, 0.0f, 1.0f});
 
@@ -35,6 +36,13 @@ namespace Hazel {
 		m_SecondCamera = m_ActiveScene->CreateEntity("Clip-Space Entity");
 		auto& cc = m_SecondCamera.AddComponent<CameraComponent>(glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f));
 		cc.Primary = false;
+=======
+		auto square = m_ActiveScene->CreateEntity();
+		m_ActiveScene->Reg().emplace<TransformComponent>(square);
+		m_ActiveScene->Reg().emplace<SptiteRendererComponent>(square, glm::vec4{ 0.0f, 1.0f, 0.0f, 1.0f });
+
+		m_SquareEntity = square;
+>>>>>>> ba8db8c0353feb32340e45ebb5c67567a9f04da0
 	}
 
 	void EditorLayer::OnDetach()
@@ -56,8 +64,16 @@ namespace Hazel {
 		RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		RenderCommand::Clear();
 		
+<<<<<<< HEAD
 		m_ActiveScene->OnUpdate(ts);
 
+=======
+
+		Renderer2D::BeginScene(m_CameraController.GetCamera());
+		m_ActiveScene->OnUpdate(ts);
+		Renderer2D::EndScene();
+
+>>>>>>> ba8db8c0353feb32340e45ebb5c67567a9f04da0
 		m_Framebuffer->Unbind();
 	}
 
@@ -120,6 +136,7 @@ namespace Hazel {
 		ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
 		ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
 
+<<<<<<< HEAD
 		if (m_SquareEntity) 
 		{
 			ImGui::Separator();
@@ -139,6 +156,10 @@ namespace Hazel {
 			m_SecondCamera.GetComponent<CameraComponent>().Primary = !m_PrimaryCamera;
 		}
 
+=======
+		auto& squareColor = m_ActiveScene->Reg().get<SptiteRendererComponent>(m_SquareEntity).Color;
+		ImGui::ColorEdit4("Square Color", glm::value_ptr(squareColor));
+>>>>>>> ba8db8c0353feb32340e45ebb5c67567a9f04da0
 		ImGui::End();
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
