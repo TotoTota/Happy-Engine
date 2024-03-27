@@ -178,10 +178,6 @@ namespace Hazel {
 
 		glfwPollEvents();
 
-		// float titleBarHeight;
-		// UI_DrawTitlebar(titleBarHeight);
-		// ImGui::SetCursorPosY(titleBarHeight);
-
 		m_Context->SwapBuffers();
 	}
 
