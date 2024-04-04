@@ -11,6 +11,8 @@
 
 #include "Platform/OpenGL/OpenGLContext.h"
 
+#include "Hazel/Core/Application.h"
+
 namespace Hazel {
 	
 	static uint8_t s_GLFWWindowCount = 0;
@@ -41,6 +43,7 @@ namespace Hazel {
 		m_Data.Title = props.Title;
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
+		customTitlebar = props.CustomTitlebar;
 
 		HZ_CORE_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
 
@@ -58,6 +61,8 @@ namespace Hazel {
 			if (Renderer::GetAPI() == RendererAPI::API::OpenGL)
 				glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
 		#endif
+			if (customTitlebar)
+				glfwWindowHint(GLFW_TITLEBAR, false);
 			m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
 			++s_GLFWWindowCount;
 		}
@@ -157,6 +162,14 @@ namespace Hazel {
 			MouseMovedEvent event((float)xPos, (float)yPos);
 			data.EventCallback(event);
 		});
+
+		if (customTitlebar) 
+		{
+			glfwSetTitlebarHitTestCallback(m_Window, [](GLFWwindow* window, int x, int y, int* hit)
+			{
+				*hit = Application::Get().IsTitlebarHovered();
+			});
+		}
 	}
 
 	void WindowsWindow::Shutdown()
@@ -180,6 +193,20 @@ namespace Hazel {
 		m_Context->SwapBuffers();
 	}
 
+
+	void WindowsWindow::Minimize()
+	{
+		glfwIconifyWindow(m_Window);
+	}
+
+	void WindowsWindow::Maximize(bool IsMaximized)
+	{
+		if (IsMaximized)
+			glfwRestoreWindow(m_Window);
+		else
+			glfwMaximizeWindow(m_Window);
+	}
+
 	void WindowsWindow::SetVSync(bool enabled)
 	{
 		HZ_PROFILE_FUNCTION();
@@ -195,6 +222,11 @@ namespace Hazel {
 	bool WindowsWindow::IsVSync() const
 	{
 		return m_Data.VSync;
+	}
+
+	bool WindowsWindow::IsMaximized() const
+	{
+		return (bool)glfwGetWindowAttrib(m_Window, GLFW_MAXIMIZED);
 	}
 
 }

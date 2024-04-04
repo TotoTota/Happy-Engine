@@ -18,6 +18,7 @@ namespace Hazel {
 		void OnUpdate(Timestep ts) override;
 		virtual void OnImGuiRender() override;
 		void OnEvent(Event& e) override;
+		bool IsTitlebarHovered() override { return m_TitlebarHovered; }
 	private:
 		Hazel::OrthographicCameraController m_CameraController;
 
@@ -33,7 +34,13 @@ namespace Hazel {
 
 		bool m_PrimaryCamera = true;
 
+		bool m_TitlebarHovered = false;
+
 		Ref<Texture2D> m_CheckerboardTexture;
+		Ref<Texture2D> m_HappyLogo;
+		Ref<Texture2D> m_CloseLogo;
+		Ref<Texture2D> m_MaximizeLogo;
+		Ref<Texture2D> m_MinimizeLogo;
 
 		bool m_ViewportFocused = false, m_ViewportHovered = false;
 		glm::vec2 m_ViewportSize = { 0.0f, 0.0f };

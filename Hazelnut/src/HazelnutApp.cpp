@@ -8,14 +8,21 @@ namespace Hazel {
 	class Hazelnut : public Application
 	{
 	public:
+		Layer* editorLayer = new EditorLayer();
+
 		Hazelnut()
-			: Application("Hazelnut")
+			: Application("Hazelnut", true)
 		{
-			PushLayer(new EditorLayer());
+			PushLayer(editorLayer);
 		}
 
 		~Hazelnut()
 		{
+		}
+
+		bool IsTitlebarHovered() override 
+		{
+			return editorLayer->IsTitlebarHovered();
 		}
 	};
 

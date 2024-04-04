@@ -18,6 +18,11 @@ namespace Hazel {
 		unsigned int GetWidth() const override { return m_Data.Width; }
 		unsigned int GetHeight() const override { return m_Data.Height; }
 
+		virtual void Minimize() override;
+		virtual void Maximize(bool IsMaximized) override;
+
+		virtual bool IsMaximized() const override;
+
 		// Window attributes
 		void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
 		void SetVSync(bool enabled) override;
@@ -30,6 +35,7 @@ namespace Hazel {
 	private:
 		GLFWwindow* m_Window;
 		Scope<GraphicsContext> m_Context;
+		bool customTitlebar = false;
 
 		struct WindowData
 		{

@@ -38,7 +38,22 @@
     <ClCompile Include="src\monitor.c">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\null_init.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\null_joystick.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\null_monitor.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\null_window.c">
+      <Filter>src</Filter>
+    </ClCompile>
     <ClCompile Include="src\osmesa_context.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\platform.c">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\vulkan.c">
@@ -51,6 +66,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\win32_joystick.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\win32_module.c">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\win32_monitor.c">

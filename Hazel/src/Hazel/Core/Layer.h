@@ -17,6 +17,7 @@ namespace Hazel {
 		virtual void OnUpdate(Timestep ts) {}
 		virtual void OnImGuiRender() {}
 		virtual void OnEvent(Event& event) {}
+		virtual bool IsTitlebarHovered() { return false; }
 
 		const std::string& GetName() const { return m_DebugName; }
 	protected:

@@ -87,10 +87,6 @@ project "Hazel"
 	filter "system:windows"
 		systemversion "10.0.17134.0"
 
-		defines
-		{
-		}
-
 	filter "configurations:Debug"
 		defines "HZ_DEBUG"
 		runtime "Debug"

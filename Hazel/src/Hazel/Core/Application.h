@@ -18,7 +18,7 @@ namespace Hazel {
 	class Application
 	{
 	public:
-		Application(const std::string& name = "Hazel App");
+		Application(const std::string& name = "Hazel App", bool customTitlebar = false);
 		virtual ~Application();
 
 		void OnEvent(Event& e);
@@ -29,10 +29,14 @@ namespace Hazel {
 		Window& GetWindow() { return *m_Window; }
 
 		void Close();
+		void Minimize();
+		void Maximize();
 
 		ImGuiLayer* GetImGuiLayer() { return m_ImGuiLayer; }
 
 		static Application& Get() { return *s_Instance; }
+
+		virtual bool IsTitlebarHovered() { return false; }
 	private:
 		void Run();
 		bool OnWindowClose(WindowCloseEvent& e);

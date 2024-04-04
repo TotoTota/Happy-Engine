@@ -13,13 +13,13 @@ namespace Hazel {
 
 	Application* Application::s_Instance = nullptr;
 
-	Application::Application(const std::string& name)
+	Application::Application(const std::string& name, bool customTitlebar)
 	{
 		HZ_PROFILE_FUNCTION();
 
 		HZ_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
-		m_Window = Window::Create(WindowProps(name));
+		m_Window = Window::Create(WindowProps(name, customTitlebar));
 		m_Window->SetEventCallback(HZ_BIND_EVENT_FN(Application::OnEvent));
 
 		Renderer::Init();
@@ -54,6 +54,20 @@ namespace Hazel {
 	void Application::Close()
 	{
 		m_Running = false;
+	}
+
+
+	void Application::Minimize()
+	{
+		GetWindow().Minimize();
+	}
+
+
+	void Application::Maximize()
+	{
+		bool IsMaximized = GetWindow().IsMaximized();
+
+		GetWindow().Maximize(IsMaximized);
 	}
 
 	void Application::OnEvent(Event& e)

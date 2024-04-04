@@ -12,11 +12,13 @@ namespace Hazel {
 		std::string Title;
 		uint32_t Width;
 		uint32_t Height;
+		bool CustomTitlebar;
 
 		WindowProps(const std::string& title = "Hazel Engine",
+					bool customTitlebar = false,
 			        uint32_t width = 1600,
 			        uint32_t height = 900)
-			: Title(title), Width(width), Height(height)
+			: Title(title), Width(width), Height(height), CustomTitlebar(customTitlebar)
 		{
 		}
 	};
@@ -33,6 +35,11 @@ namespace Hazel {
 
 		virtual uint32_t GetWidth() const = 0;
 		virtual uint32_t GetHeight() const = 0;
+
+		virtual void Minimize() = 0;
+		virtual void Maximize(bool IsMaximized) = 0;
+
+		virtual bool IsMaximized() const = 0;
 
 		// Window attributes
 		virtual void SetEventCallback(const EventCallbackFn& callback) = 0;
