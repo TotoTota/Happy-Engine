@@ -20,6 +20,15 @@ namespace Hazel {
 		void OnEvent(Event& e) override;
 		bool IsTitlebarHovered() override { return m_TitlebarHovered; }
 	private:
+		bool OnKeyPressed(KeyPressedEvent& e);
+
+		void NewScene();
+		void OpenScene();
+		void SaveSceneAs();
+
+		void ShowAboutModal();
+		void DrawAboutModal();
+	private:
 		Hazel::OrthographicCameraController m_CameraController;
 
 		// Temp
@@ -35,6 +44,7 @@ namespace Hazel {
 		bool m_PrimaryCamera = true;
 
 		bool m_TitlebarHovered = false;
+		bool m_AboutPopup = false;
 
 		Ref<Texture2D> m_CheckerboardTexture;
 		Ref<Texture2D> m_HappyLogo;
