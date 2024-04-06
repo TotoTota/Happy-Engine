@@ -6,7 +6,7 @@ Happy Engine
 
 # What is Happy Engine
 
-Happy Engine is a game engine that supports 2d and 3d graphis, The engine uses C# to code game logic, This engine started with the cherno's
+Happy Engine is a game engine that supports 2d and 3d graphics, The engine uses C# to code game logic, This engine started with the cherno's
 game engine series.
 
 # What Did I change from the cherno's game engine series
