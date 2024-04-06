@@ -8,6 +8,10 @@
 
 #include "Hazel/Utils/PlatformUtils.h"
 
+#include "ImGuizmo.h"
+
+#include "Hazel/Math/Math.h"
+
 namespace Hazel {
 
 	EditorLayer::EditorLayer()
@@ -37,7 +41,7 @@ namespace Hazel {
 
 			ImGui::BeginGroup();
 			ImGui::Text("Happy Engine");
-			ImGui::Text("by HappyFries");
+			ImGui::Text("by Studio Fries");
 			ImGui::EndGroup();
 
 			ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 20.0f);
@@ -219,6 +223,23 @@ namespace Hazel {
 			float titlebarWidth = ImGui::GetContentRegionAvail().x;
 			float titlebarHeight = ImGui::GetTextLineHeightWithSpacing() + ImGui::GetStyle().FramePadding.y * 2.0f;
 
+			ImVec2 windowPos = ImGui::GetWindowPos();
+			ImVec4 gradientColor = ImVec4(0.8f, 0.3f, 0.2f, 1.0f);
+			float gradientWidth = ImGui::GetWindowSize().x * 0.18f;
+			int numSegments = static_cast<int>(gradientWidth) * 2;
+			ImDrawList* drawList = ImGui::GetWindowDrawList();
+
+			for (int i = 0; i < numSegments; ++i) {
+				float alpha = 1.0f - (static_cast<float>(i) / numSegments);
+				ImVec4 color = ImVec4(gradientColor.x, gradientColor.y, gradientColor.z, alpha * alpha);
+
+				float posX = windowPos.x + (i * gradientWidth / numSegments);
+				float posY = windowPos.y;
+				float rectWidth = gradientWidth / numSegments;
+
+				drawList->AddRectFilled(ImVec2(posX, posY), ImVec2(posX + rectWidth, posY + ImGui::GetWindowSize().y), ImColor(color));
+			}
+
 			float cursorPosX = ImGui::GetCursorPosX();
 			float cursorPosY = ImGui::GetCursorPosY();
 			ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 5);
@@ -226,8 +247,9 @@ namespace Hazel {
 			ImGui::SetCursorPosY(cursorPosY);
 
 			float remainingWidth = titlebarWidth - 215.0f;
-			float textPosX = remainingWidth / 2.0f - ImGui::CalcTextSize("Hazelnut").x / 2.0f + 110;
+			float textPosX = remainingWidth / 2.0f - ImGui::CalcTextSize("Hazelnut 2023.2 [Release]").x / 2.0f + 110;
 
+			ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 7);
 			if (ImGui::BeginMenu("File"))
 			{
 				if (ImGui::MenuItem("New", "Ctrl-N"))
@@ -251,6 +273,7 @@ namespace Hazel {
 				}
 				ImGui::EndMenu();
 			}
+			ImGui::SetCursorPosY(cursorPosY);
 
 			ImGui::InvisibleButton("##titleBarDragZone", ImVec2(titlebarWidth - 250.0f, titlebarHeight));
 			m_TitlebarHovered = ImGui::IsItemHovered();
@@ -258,9 +281,11 @@ namespace Hazel {
 			ImGuiIO& io = ImGui::GetIO();
 			auto boldFont = io.Fonts->Fonts[0];
 			ImGui::SameLine(textPosX);
+			ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 7);
 			ImGui::PushFont(boldFont);
-			ImGui::Text("Hazelnut");
+			ImGui::Text("Hazelnut 2023.2 [Release]");
 			ImGui::PopFont();
+			ImGui::SetCursorPosY(cursorPosY);
 
 			float buttonOffsetX = remainingWidth + cursorPosX + 95;
 			float buttonOffsetY = cursorPosY + 5;
@@ -306,13 +331,58 @@ namespace Hazel {
 
 		m_ViewportFocused = ImGui::IsWindowFocused();
 		m_ViewportHovered = ImGui::IsWindowHovered();
-		Application::Get().GetImGuiLayer()->BlockEvents(!m_ViewportFocused || !m_ViewportHovered);
+		Application::Get().GetImGuiLayer()->BlockEvents(!m_ViewportFocused && !m_ViewportHovered);
 
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
 		m_ViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
 
 		uint32_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
 		ImGui::Image((void*)textureID, ImVec2{ m_ViewportSize.x, m_ViewportSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+
+		// Gizmos
+		Entity selectedEntity = m_SceneHierarchyPanel.GetSelectedEntity();
+		if (selectedEntity && m_GizmoType != -1)
+		{
+			ImGuizmo::SetOrthographic(false);
+			ImGuizmo::SetDrawlist();
+			float windowWidth = (float)ImGui::GetWindowWidth();
+			float windowHeight = (float)ImGui::GetWindowHeight();
+			ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, windowWidth, windowHeight);
+
+			// Camera
+			auto cameraEntity = m_ActiveScene->GetPrimaryCameraEntity();
+			const auto& camera = cameraEntity.GetComponent<CameraComponent>().Camera;
+			const glm::mat4& cameraProjection = camera.GetProjection();
+			glm::mat4 cameraView = glm::inverse(cameraEntity.GetComponent<TransformComponent>().GetTransform());
+
+			// Entity Transform
+			auto& tc = selectedEntity.GetComponent<TransformComponent>();
+			glm::mat4& transform = tc.GetTransform();
+
+			// Snapping
+			bool snap = Input::IsKeyPressed(Key::LeftControl);
+			float snapValue = 0.5f;
+			if (m_GizmoType == ImGuizmo::OPERATION::ROTATE)
+				snapValue = 45.0f;
+
+			float snapValues[3] = { snapValue, snapValue, snapValue };
+
+			ImGuizmo::Manipulate(glm::value_ptr(cameraView), glm::value_ptr(cameraProjection),
+				(ImGuizmo::OPERATION)m_GizmoType, ImGuizmo::LOCAL, glm::value_ptr(transform),
+				nullptr, snap ? snapValues : nullptr);
+
+			if (ImGuizmo::IsUsing())
+			{
+				glm::vec3 translation, rotation, scale;
+				Math::DecomposeTransform(transform, translation, rotation, scale);
+
+				glm::vec3 deltaRotation = rotation - tc.Rotation;
+				tc.Translation = translation;
+				tc.Rotation += deltaRotation;
+				tc.Scale = scale;
+			}
+		}
+
 		ImGui::End();
 		ImGui::PopStyleVar();
 
@@ -357,6 +427,20 @@ namespace Hazel {
 
 				break;
 			}
+
+			// Gizmos
+			case Key::Q:
+				m_GizmoType = -1;
+				break;
+			case Key::W:
+				m_GizmoType = ImGuizmo::OPERATION::TRANSLATE;
+				break;
+			case Key::E:
+				m_GizmoType = ImGuizmo::OPERATION::ROTATE;
+				break;
+			case Key::R:
+				m_GizmoType = ImGuizmo::OPERATION::SCALE;
+				break;
 		}
 	}
 
