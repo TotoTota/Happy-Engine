@@ -1300,6 +1300,7 @@
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
     <ClInclude Include="src\Hazel\Math\Math.h" />
+    <ClInclude Include="src\Hazel\Renderer\EditorCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Hazel\Core\Application.cpp">
@@ -1411,5 +1412,6 @@
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
     <ClCompile Include="src\Hazel\Math\Math.cpp" />
+    <ClCompile Include="src\Hazel\Renderer\EditorCamera.cpp" />
   </ItemGroup>
 </Project>

@@ -1,5 +1,4 @@
 #include "EditorLayer.h"
-#include <imgui/imgui.h>
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -70,6 +69,13 @@ namespace Hazel {
 
 		HZ_PROFILE_FUNCTION();
 
+		std::srand(static_cast<unsigned int>(std::time(nullptr)));
+
+		m_GradientColor = ImVec4((static_cast<float>(std::rand()) / RAND_MAX) * 0.75f,
+			(static_cast<float>(std::rand()) / RAND_MAX) * 0.75f,
+			(static_cast<float>(std::rand()) / RAND_MAX) * 0.75f,
+			1.0f);
+
 		m_CheckerboardTexture = Texture2D::Create("assets/textures/Checkerboard.png");
 		m_HappyLogo = Texture2D::Create("assets/textures/Hazel2.png");
 		m_CloseLogo = Texture2D::Create("assets/textures/close2.png");
@@ -82,6 +88,8 @@ namespace Hazel {
 		m_Framebuffer = Framebuffer::Create(fbSpec);
 
 		m_ActiveScene = CreateRef<Scene>();
+
+		m_EditorCamera = EditorCamera(30.0f, 1.778f, 0.1f, 1000.0f);
 
 #if 0
 		// Entity
@@ -152,19 +160,21 @@ namespace Hazel {
 		{
 			m_Framebuffer->Resize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
 			m_CameraController.OnResize(m_ViewportSize.x, m_ViewportSize.y);
-
+			m_EditorCamera.SetViewportSize(m_ViewportSize.x, m_ViewportSize.y);
 			m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
 		}
 
-		if (m_ViewportFocused)
+		if (m_ViewportFocused) 
 			m_CameraController.OnUpdate(ts);
+		
+		m_EditorCamera.OnUpdate(ts);
 
 		Renderer2D::ResetStats();
 		m_Framebuffer->Bind();
 		RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		RenderCommand::Clear();
 
-		m_ActiveScene->OnUpdate(ts);
+		m_ActiveScene->OnUpdateEditor(ts, m_EditorCamera);
 
 		m_Framebuffer->Unbind();
 	}
@@ -223,15 +233,16 @@ namespace Hazel {
 			float titlebarWidth = ImGui::GetContentRegionAvail().x;
 			float titlebarHeight = ImGui::GetTextLineHeightWithSpacing() + ImGui::GetStyle().FramePadding.y * 2.0f;
 
+			// std::srand(static_cast<unsigned int>(std::time(nullptr)));
+
 			ImVec2 windowPos = ImGui::GetWindowPos();
-			ImVec4 gradientColor = ImVec4(0.8f, 0.3f, 0.2f, 1.0f);
 			float gradientWidth = ImGui::GetWindowSize().x * 0.18f;
 			int numSegments = static_cast<int>(gradientWidth) * 2;
 			ImDrawList* drawList = ImGui::GetWindowDrawList();
 
 			for (int i = 0; i < numSegments; ++i) {
 				float alpha = 1.0f - (static_cast<float>(i) / numSegments);
-				ImVec4 color = ImVec4(gradientColor.x, gradientColor.y, gradientColor.z, alpha * alpha);
+				ImVec4 color = ImVec4(m_GradientColor.x, m_GradientColor.y, m_GradientColor.z, alpha * alpha);
 
 				float posX = windowPos.x + (i * gradientWidth / numSegments);
 				float posY = windowPos.y;
@@ -350,10 +361,15 @@ namespace Hazel {
 			ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, windowWidth, windowHeight);
 
 			// Camera
-			auto cameraEntity = m_ActiveScene->GetPrimaryCameraEntity();
-			const auto& camera = cameraEntity.GetComponent<CameraComponent>().Camera;
-			const glm::mat4& cameraProjection = camera.GetProjection();
-			glm::mat4 cameraView = glm::inverse(cameraEntity.GetComponent<TransformComponent>().GetTransform());
+			// Runtime Camera
+			// auto cameraEntity = m_ActiveScene->GetPrimaryCameraEntity();
+			// const auto& camera = cameraEntity.GetComponent<CameraComponent>().Camera;
+			// const glm::mat4& cameraProjection = camera.GetProjection();
+			// glm::mat4 cameraView = glm::inverse(cameraEntity.GetComponent<TransformComponent>().GetTransform());
+
+			// Editor Camera
+			const glm::mat4 cameraProjection = m_EditorCamera.GetProjection();
+			glm::mat4 cameraView = m_EditorCamera.GetViewMatrix();
 
 			// Entity Transform
 			auto& tc = selectedEntity.GetComponent<TransformComponent>();
@@ -392,6 +408,7 @@ namespace Hazel {
 	void EditorLayer::OnEvent(Event& e)
 	{
 		m_CameraController.OnEvent(e);
+		m_EditorCamera.OnEvent(e);
 
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<KeyPressedEvent>(HZ_BIND_EVENT_FN(EditorLayer::OnKeyPressed));

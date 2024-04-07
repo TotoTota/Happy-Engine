@@ -1,8 +1,10 @@
 #pragma once
 
 #include "Hazel.h"
-
 #include "Panels/SceneHierarchyPanel.h"
+#include "Hazel/Renderer/EditorCamera.h"
+
+#include <imgui/imgui.h>
 
 namespace Hazel {
 
@@ -43,6 +45,8 @@ namespace Hazel {
 
 		bool m_PrimaryCamera = true;
 
+		EditorCamera m_EditorCamera;
+
 		bool m_TitlebarHovered = false;
 		bool m_AboutPopup = false;
 
@@ -58,6 +62,8 @@ namespace Hazel {
 		glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
 
 		int m_GizmoType = -1;
+
+		ImVec4 m_GradientColor;
 
 		// Panels
 		SceneHierarchyPanel m_SceneHierarchyPanel;
