@@ -40,7 +40,7 @@ namespace Hazel {
 
 			ImGui::BeginGroup();
 			ImGui::Text("Happy Engine");
-			ImGui::Text("by Studio Fries");
+			ImGui::Text("by Happiness Studio");
 			ImGui::EndGroup();
 
 			ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 20.0f);
@@ -165,16 +165,22 @@ namespace Hazel {
 			m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
 		}
 
+		// Update
 		if (m_ViewportFocused) 
 			m_CameraController.OnUpdate(ts);
 		
 		m_EditorCamera.OnUpdate(ts);
 
+		// Render
 		Renderer2D::ResetStats();
 		m_Framebuffer->Bind();
 		RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		RenderCommand::Clear();
 
+		// Clear our entity ID attachment to -1
+		m_Framebuffer->ClearAttachment(1, -1);
+
+		// Update Scene
 		m_ActiveScene->OnUpdateEditor(ts, m_EditorCamera);
 
 		auto [mx, my] = ImGui::GetMousePos();
