@@ -23,6 +23,7 @@ namespace Hazel {
 		bool IsTitlebarHovered() override { return m_TitlebarHovered; }
 	private:
 		bool OnKeyPressed(KeyPressedEvent& e);
+		bool OnMouseButtonPressed(MouseButtonPressedEvent& e);
 
 		void NewScene();
 		void OpenScene();
