@@ -2,6 +2,8 @@
 
 #include "Hazel.h"
 #include "Panels/SceneHierarchyPanel.h"
+#include "Panels/ContentBrowserPanel.h"
+
 #include "Hazel/Renderer/EditorCamera.h"
 
 #include <imgui/imgui.h>
@@ -23,6 +25,7 @@ namespace Hazel {
 		bool IsTitlebarHovered() override { return m_TitlebarHovered; }
 	private:
 		bool OnKeyPressed(KeyPressedEvent& e);
+		bool OnMouseButtonPressed(MouseButtonPressedEvent& e);
 
 		void NewScene();
 		void OpenScene();
@@ -70,6 +73,7 @@ namespace Hazel {
 
 		// Panels
 		SceneHierarchyPanel m_SceneHierarchyPanel;
+		ContentBrowserPanel m_ContentBrowserPanel;
 	};
 
 }
