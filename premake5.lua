@@ -26,12 +26,14 @@ IncludeDir["stb_image"] = "Hazel/vendor/stb_image"
 IncludeDir["entt"] = "Hazel/vendor/entt/include"
 IncludeDir["yaml_cpp"] = "Hazel/vendor/yaml-cpp/include"
 IncludeDir["ImGuizmo"] = "Hazel/vendor/ImGuizmo"
+IncludeDir["Box2D"] = "Hazel/vendor/Box2D/include"
 
 group "Dependencies"
 	include "Hazel/vendor/GLFW"
 	include "Hazel/vendor/Glad"
 	include "Hazel/vendor/imgui"
 	include "Hazel/vendor/yaml-cpp"
+	include "Hazel/vendor/Box2D"
 group ""
 
 project "Hazel"
@@ -77,7 +79,8 @@ project "Hazel"
 		"%{IncludeDir.stb_image}",
 		"%{IncludeDir.entt}",
 		"%{IncludeDir.yaml_cpp}",
-		"%{IncludeDir.ImGuizmo}"
+		"%{IncludeDir.ImGuizmo}",
+		"%{IncludeDir.Box2D}"
 	}
 
 	links 
@@ -86,6 +89,7 @@ project "Hazel"
 		"Glad",
 		"ImGui",
 		"yaml-cpp",
+		"Box2D",
 		"opengl32.lib"
 	}
 
