@@ -34,6 +34,12 @@ namespace Hazel {
 
 		void ShowAboutModal();
 		void DrawAboutModal();
+
+		void OnScenePlay();
+		void OnSceneStop();
+
+		// UI Panels
+		void UI_Toolbar();
 	private:
 		Hazel::OrthographicCameraController m_CameraController;
 
@@ -57,6 +63,8 @@ namespace Hazel {
 		bool m_AboutPopup = false;
 
 		Ref<Texture2D> m_CheckerboardTexture;
+		Ref<Texture2D> m_IconPlay;
+		Ref<Texture2D> m_IconStop;
 		Ref<Texture2D> m_HappyLogo;
 		Ref<Texture2D> m_CloseLogo;
 		Ref<Texture2D> m_MaximizeLogo;
@@ -75,6 +83,13 @@ namespace Hazel {
 		// Panels
 		SceneHierarchyPanel m_SceneHierarchyPanel;
 		ContentBrowserPanel m_ContentBrowserPanel;
+
+		enum class SceneState 
+		{
+			Edit = 0, Play = 1
+		};
+
+		SceneState m_SceneState = SceneState::Edit;
 	};
 
 }
