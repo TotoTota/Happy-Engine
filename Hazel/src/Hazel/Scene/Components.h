@@ -6,11 +6,19 @@
 #include <glm/gtx/quaternion.hpp>
 
 #include "SceneCamera.h"
-#include "ScriptableEntity.h"
+#include "Hazel/Core/UUID.h"
 #include "Hazel/Renderer/Texture.h"
 #include "glm/gtc/matrix_transform.hpp"
 
 namespace Hazel {
+
+	struct IDComponent
+	{
+		UUID ID;
+
+		IDComponent() = default;
+		IDComponent(const IDComponent&) = default;
+	};
 
 	struct TagComponent
 	{
@@ -64,6 +72,8 @@ namespace Hazel {
 		CameraComponent() = default;
 		CameraComponent(const CameraComponent&) = default;
 	};
+	// Forward Declaration
+	class ScriptableEntity;
 
 	struct NativeScriptComponent
 	{

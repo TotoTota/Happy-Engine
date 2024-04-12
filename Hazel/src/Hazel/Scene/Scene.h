@@ -5,6 +5,7 @@
 #include "Hazel/Renderer/EditorCamera.h"
 
 #include "Hazel/Core/Timestep.h"
+#include "Hazel/Core/UUID.h"
 
 class b2World;
 
@@ -19,6 +20,7 @@ namespace Hazel {
 		~Scene();
 
 		Entity CreateEntity(const std::string& name = std::string());
+		Entity CreateEntityWithUUID(UUID uuid, const std::string& name = std::string());
 		void DestroyEntity(Entity entity);
 
 		void OnRuntimeStart();
