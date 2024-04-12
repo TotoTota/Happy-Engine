@@ -405,7 +405,19 @@ namespace Hazel {
 			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
 			{
 				const wchar_t* path = (const wchar_t*)payload->Data;
-				OpenScene(std::filesystem::path(g_AssetPath) / path);
+				std::filesystem::path scenePath = std::filesystem::path(g_AssetPath) / path;
+				if (!scenePath.empty())
+				{
+					std::string extension = scenePath.extension().string();
+					if (extension == ".hazel")
+					{
+						OpenScene(scenePath);
+					}
+					else 
+					{
+						HZ_CORE_WARN("Not a Happy scene! Make sure your file is a .hazel");
+					}
+				}
 			}
 			ImGui::EndDragDropTarget();
 		}
@@ -598,11 +610,13 @@ namespace Hazel {
 	void EditorLayer::OnScenePlay()
 	{
 		m_SceneState = SceneState::Play;
+		m_ActiveScene->OnRuntimeStart();
 	}
 
 	void EditorLayer::OnSceneStop()
 	{
 		m_SceneState = SceneState::Edit;
+		m_ActiveScene->OnRuntimeStop();
 	}
 
 }
