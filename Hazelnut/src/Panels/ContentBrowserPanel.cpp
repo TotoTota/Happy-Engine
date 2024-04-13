@@ -2,6 +2,7 @@
 #include "ContentBrowserPanel.h"
 
 #include <imgui/imgui.h>
+#include <imgui/imgui_internal.h>
 
 namespace Hazel {
 
@@ -13,6 +14,8 @@ namespace Hazel {
 	{
 		m_DirectoryIcon = Texture2D::Create("Resources/DirectoryIcon.png");
 		m_FileIcon = Texture2D::Create("Resources/FileIcon.png");
+		m_PNGIcon = Texture2D::Create("Resources/PNGIcon.png");
+		m_HappySceneIcon = Texture2D::Create("Resources/HappyScene.png");
 	}
 
 	void ContentBrowserPanel::OnImGuiRender()
@@ -46,6 +49,10 @@ namespace Hazel {
 
 			ImGui::PushID(filenameString.c_str());
 			Ref<Texture2D> icon = directoryEntry.is_directory() ? m_DirectoryIcon : m_FileIcon;
+			if (relativePath.extension() == ".png")
+				icon = m_PNGIcon;
+			else if (relativePath.extension() == ".hazel")
+				icon = m_HappySceneIcon;
 			ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
 			ImGui::ImageButton((ImTextureID)icon->GetRendererID(), { thumbnailSize, thumbnailSize }, { 0, 1 }, { 1, 0 });
 

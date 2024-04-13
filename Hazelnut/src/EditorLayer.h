@@ -3,6 +3,7 @@
 #include "Hazel.h"
 #include "Panels/SceneHierarchyPanel.h"
 #include "Panels/ContentBrowserPanel.h"
+#include "Panels/TestPanel.h"
 
 #include "Hazel/Renderer/EditorCamera.h"
 
@@ -90,6 +91,7 @@ namespace Hazel {
 		// Panels
 		SceneHierarchyPanel m_SceneHierarchyPanel;
 		ContentBrowserPanel m_ContentBrowserPanel;
+		TestPanel m_TestPanel;
 
 		enum class SceneState 
 		{

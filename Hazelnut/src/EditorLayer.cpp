@@ -355,10 +355,11 @@ namespace Hazel {
 		}
 		style.FramePadding = ImVec2(4.0f, framePaddingY);
 		
-		// ImGui::ShowDemoWindow();
+		ImGui::ShowDemoWindow();
 
 		m_SceneHierarchyPanel.OnImGuiRender();
 		m_ContentBrowserPanel.OnImGuiRender();
+		m_TestPanel.OnImGuiRender();
 
 		if (m_AboutPopup)
 			DrawAboutModal();
