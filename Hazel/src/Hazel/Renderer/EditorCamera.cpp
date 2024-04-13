@@ -78,10 +78,11 @@ namespace Hazel {
 		UpdateView();
 	}
 
-	void EditorCamera::OnEvent(Event& e)
+	void EditorCamera::OnEvent(Event& e, bool ViewportHovered)
 	{
 		EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<MouseScrolledEvent>(HZ_BIND_EVENT_FN(EditorCamera::OnMouseScroll));
+		if (ViewportHovered)
+			dispatcher.Dispatch<MouseScrolledEvent>(HZ_BIND_EVENT_FN(EditorCamera::OnMouseScroll));
 	}
 
 	bool EditorCamera::OnMouseScroll(MouseScrolledEvent& e)
