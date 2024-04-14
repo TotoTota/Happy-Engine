@@ -359,7 +359,6 @@ namespace Hazel {
 
 		m_SceneHierarchyPanel.OnImGuiRender();
 		m_ContentBrowserPanel.OnImGuiRender();
-		m_TestPanel.OnImGuiRender();
 
 		if (m_AboutPopup)
 			DrawAboutModal();

@@ -91,7 +91,6 @@ namespace Hazel {
 		// Panels
 		SceneHierarchyPanel m_SceneHierarchyPanel;
 		ContentBrowserPanel m_ContentBrowserPanel;
-		TestPanel m_TestPanel;
 
 		enum class SceneState 
 		{
