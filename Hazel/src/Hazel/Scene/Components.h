@@ -1,14 +1,14 @@
 #pragma once
 
-#include <glm/glm.hpp>
-
-#define GLM_ENABLE_EXPERIMENTAL
-#include <glm/gtx/quaternion.hpp>
-
 #include "SceneCamera.h"
 #include "Hazel/Core/UUID.h"
 #include "Hazel/Renderer/Texture.h"
-#include "glm/gtc/matrix_transform.hpp"
+
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+
+#define GLM_ENABLE_EXPERIMENTAL
+#include <glm/gtx/quaternion.hpp>
 
 namespace Hazel {
 
@@ -46,8 +46,8 @@ namespace Hazel {
 			glm::mat4 rotation = glm::toMat4(glm::quat(Rotation));
 
 			return glm::translate(glm::mat4(1.0f), Translation)
-					* rotation
-					* glm::scale(glm::mat4(1.0f), Scale);
+				* rotation
+				* glm::scale(glm::mat4(1.0f), Scale);
 		}
 	};
 
@@ -63,23 +63,34 @@ namespace Hazel {
 			: Color(color) {}
 	};
 
+	struct CircleRendererComponent
+	{
+		glm::vec4 Color{ 1.0f, 1.0f, 1.0f, 1.0f };
+		float Thickness = 1.0f;
+		float Fade = 0.005f;
+
+		CircleRendererComponent() = default;
+		CircleRendererComponent(const CircleRendererComponent&) = default;
+	};
+
 	struct CameraComponent
 	{
 		SceneCamera Camera;
-		bool Primary = true;
+		bool Primary = true; // TODO: think about moving to Scene
 		bool FixedAspectRatio = false;
 
 		CameraComponent() = default;
 		CameraComponent(const CameraComponent&) = default;
 	};
-	// Forward Declaration
+
+	// Forward declaration
 	class ScriptableEntity;
 
 	struct NativeScriptComponent
 	{
 		ScriptableEntity* Instance = nullptr;
 
-		ScriptableEntity*(*InstantiateScript)();
+		ScriptableEntity* (*InstantiateScript)();
 		void (*DestroyScript)(NativeScriptComponent*);
 
 		template<typename T>
@@ -92,9 +103,9 @@ namespace Hazel {
 
 	// Physics
 
-	struct Rigidbody2DComponent 
+	struct Rigidbody2DComponent
 	{
-		enum class BodyType { Static  = 0, Dynamic, Kinematic };
+		enum class BodyType { Static = 0, Dynamic, Kinematic };
 		BodyType Type = BodyType::Static;
 		bool FixedRotation = false;
 

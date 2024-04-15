@@ -94,6 +94,14 @@ namespace Hazel {
 
 		m_ActiveScene = CreateRef<Scene>();
 
+		auto commandLineArgs = Application::Get().GetCommandLineArgs();
+		if (commandLineArgs.Count > 1)
+		{
+			auto sceneFilePath = commandLineArgs[1];
+			SceneSerializer serializer(m_ActiveScene);
+			serializer.Deserialize(sceneFilePath);
+		}
+
 		m_EditorCamera = EditorCamera(30.0f, 1.778f, 0.1f, 1000.0f);
 
 #if 0
@@ -355,7 +363,7 @@ namespace Hazel {
 		}
 		style.FramePadding = ImVec2(4.0f, framePaddingY);
 		
-		ImGui::ShowDemoWindow();
+		// ImGui::ShowDemoWindow();
 
 		m_SceneHierarchyPanel.OnImGuiRender();
 		m_ContentBrowserPanel.OnImGuiRender();
@@ -630,8 +638,8 @@ namespace Hazel {
 		std::string filepath = FileDialogs::SaveFile("Hazel Scene (*.hazel)\0*.hazel\0");
 		if (!filepath.empty())
 		{
-			SerializeScene(m_ActiveScene, filepath);
-			m_EditorScenepath = filepath;
+			SceneSerializer serializer(m_ActiveScene);
+			serializer.Serialize(filepath);
 		}
 	}
 
