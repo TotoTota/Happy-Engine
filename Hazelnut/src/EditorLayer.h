@@ -41,6 +41,7 @@ namespace Hazel {
 		void DrawAboutModal();
 
 		void OnScenePlay();
+		void OnSimulate();
 		void OnSceneStop();
 
 		void OnDuplicateEntity();
@@ -73,6 +74,7 @@ namespace Hazel {
 
 		Ref<Texture2D> m_CheckerboardTexture;
 		Ref<Texture2D> m_IconPlay;
+		Ref<Texture2D> m_SimulateIcon;
 		Ref<Texture2D> m_IconStop;
 		Ref<Texture2D> m_HappyLogo;
 		Ref<Texture2D> m_CloseLogo;
@@ -97,7 +99,7 @@ namespace Hazel {
 
 		enum class SceneState 
 		{
-			Edit = 0, Play = 1
+			Edit = 0, Play = 1, Simulate = 2
 		};
 
 		SceneState m_SceneState = SceneState::Edit;

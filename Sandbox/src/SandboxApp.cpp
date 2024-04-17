@@ -7,19 +7,26 @@
 class Sandbox : public Hazel::Application
 {
 public:
-	Sandbox()
-		: Application()
+	Hazel::Layer* sandbox2D = new Sandbox2D();
+
+	Sandbox(Hazel::ApplicationCommandLineArgs args)
+		: Hazel::Application("Sandbox", false, args)
 	{
 		// PushLayer(new ExampleLayer());
-		PushLayer(new Sandbox2D());
+		PushLayer(sandbox2D);
 	}
 
 	~Sandbox()
 	{
 	}
+
+	bool IsTitlebarHovered() override
+	{
+		return sandbox2D->IsTitlebarHovered();
+	}
 };
 
-Hazel::Application* Hazel::CreateApplication(ApplicationCommandLineArgs args)
+Hazel::Application* Hazel::CreateApplication(Hazel::ApplicationCommandLineArgs args)
 {
-	return new Sandbox();
+	return new Sandbox(args);
 }
