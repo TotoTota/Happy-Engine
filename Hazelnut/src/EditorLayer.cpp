@@ -104,6 +104,7 @@ namespace Hazel {
 		}
 
 		m_EditorCamera = EditorCamera(30.0f, 1.778f, 0.1f, 1000.0f);
+		Renderer2D::SetLineWidth(3.0f);
 
 #if 0
 		// Entity
@@ -667,6 +668,13 @@ namespace Hazel {
 					Renderer2D::DrawRect(transform, glm::vec4(0, 1, 0, 1), 0.005f);
 				}
 			}
+		}
+
+		if (Entity selectedEntity = m_SceneHierarchyPanel.GetSelectedEntity())
+		{
+			TransformComponent transform = selectedEntity.GetComponent<TransformComponent>();
+
+			Renderer2D::DrawRect(transform.GetTransform(), glm::vec4(0.2f, 0.3f, 0.8f, 1));
 		}
 
 		Renderer2D::EndScene();
