@@ -38,7 +38,9 @@ namespace Hazel {
 		void SerializeScene(Ref<Scene> scene, const std::filesystem::path& path);
 
 		void ShowAboutModal();
+		void ShowTeamModal();
 		void DrawAboutModal();
+		void DrawTeamModal();
 
 		void OnScenePlay();
 		void OnSimulate();
@@ -71,12 +73,14 @@ namespace Hazel {
 
 		bool m_TitlebarHovered = false;
 		bool m_AboutPopup = false;
+		bool m_TeamPopup = false;
 
 		Ref<Texture2D> m_CheckerboardTexture;
 		Ref<Texture2D> m_IconPlay;
 		Ref<Texture2D> m_SimulateIcon;
 		Ref<Texture2D> m_IconStop;
 		Ref<Texture2D> m_HappyLogo;
+		Ref<Texture2D> m_HappinessLogo;
 		Ref<Texture2D> m_CloseLogo;
 		Ref<Texture2D> m_MaximizeLogo;
 		Ref<Texture2D> m_MinimizeLogo;

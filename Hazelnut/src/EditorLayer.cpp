@@ -25,6 +25,52 @@ namespace Hazel {
 		m_AboutPopup = true;
 	}
 
+	void EditorLayer::ShowTeamModal()
+	{
+		m_TeamPopup = true;
+	}
+
+
+	void EditorLayer::DrawTeamModal()
+	{
+		if (!m_TeamPopup)
+			return;
+
+		ImGui::OpenPopup("About");
+		m_TeamPopup = ImGui::BeginPopupModal("About", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+		if (m_TeamPopup)
+		{
+			auto image = m_HappinessLogo;
+			ImGui::Image((ImTextureID)image->GetRendererID(), { 48, 48 }, { 0, 1 }, { 1, 0 });
+
+			ImGui::SameLine();
+
+			ImGui::BeginGroup();
+			ImGui::Text("Happiness Studio:");
+			ImGui::Text("Tommy Kyro: Creator");
+			ImGui::Text("Michel Ramillon: Contributor, Adviser");
+			ImGui::EndGroup();
+
+			ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 30.0f);
+			ImGuiStyle& style = ImGui::GetStyle();
+
+			float actualSize = ImGui::CalcTextSize("Close").x + style.FramePadding.x * 2.0f;
+			float avail = ImGui::GetContentRegionAvail().x;
+
+			float off = (avail - actualSize) * 0.5f;
+			if (off > 0.0f)
+				ImGui::SetCursorPosX(ImGui::GetCursorPosX() + off);
+
+			if (ImGui::Button("Close"))
+			{
+				m_TeamPopup = false;
+				ImGui::CloseCurrentPopup();
+			}
+
+		}
+
+		ImGui::EndPopup();
+	}
 
 	void EditorLayer::DrawAboutModal()
 	{
@@ -83,6 +129,7 @@ namespace Hazel {
 		m_SimulateIcon = Texture2D::Create("Resources/SimulationPlay.png");
 		m_IconStop = Texture2D::Create("Resources/Stop.png");
 		m_HappyLogo = Texture2D::Create("assets/textures/Hazel2.png");
+		m_HappinessLogo = Texture2D::Create("Resources/HapinessStudioLogo.png");
 		m_CloseLogo = Texture2D::Create("assets/textures/close2.png");
 		m_MaximizeLogo = Texture2D::Create("assets/textures/maximize2.png");
 		m_MinimizeLogo = Texture2D::Create("assets/textures/minimize.png");
@@ -337,6 +384,11 @@ namespace Hazel {
 				{
 					ShowAboutModal();
 				}
+
+				if (ImGui::MenuItem("Team"))
+				{
+					ShowTeamModal();
+				}
 				ImGui::EndMenu();
 			}
 			ImGui::SetCursorPosY(cursorPosY);
@@ -381,6 +433,8 @@ namespace Hazel {
 
 		if (m_AboutPopup)
 			DrawAboutModal();
+		if (m_TeamPopup)
+			DrawTeamModal();
 
 		ImGui::Begin("Stats");
 

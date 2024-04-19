@@ -32,7 +32,7 @@ namespace Hazel {
 			ImGui::PopStyleColor();
 		}
 
-		static float padding = 16.0f;
+		static float padding = 30.0f;
 		static float thumbnailSize = 128.0f;
 		float cellSize = thumbnailSize + padding;
 
