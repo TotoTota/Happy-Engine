@@ -31,8 +31,18 @@ group "Dependencies"
 	include "Hazel/vendor/Glad"
 	include "Hazel/vendor/imgui"
 	include "Hazel/vendor/yaml-cpp"
+	include "Hazel/vendor/Coral/Coral.Native/premake5.lua"
+	include "Hazel/vendor/Coral/Coral.Managed/premake5.lua"
 group ""
 
+group "Core"
 include "Hazel"
+group ""
+
+group "Testing"
 include "Sandbox"
+group ""
+
+group "Tools"
 include "Hazelnut"
+group ""
