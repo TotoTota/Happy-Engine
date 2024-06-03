@@ -18,6 +18,8 @@ Entities:
         OrthographicFar: 1
       Primary: true
       FixedAspectRatio: false
+    ScriptComponent:
+      ClassName: Sandbox.Camera
   - Entity: 2124594277934998164
     TagComponent:
       Tag: Sprite
@@ -25,8 +27,11 @@ Entities:
       Translation: [3.39065075, 4.49131775, 7.4505806e-09]
       Rotation: [0, 0, 0.77426827]
       Scale: [0.999999881, 0.999999881, 1]
+    ScriptComponent:
+      ClassName: Sandbox.Player
     SpriteRendererComponent:
       Color: [1, 1, 1, 1]
+      TilingFactor: 1
     Rigidbody2DComponent:
       BodyType: Dynamic
       FixedRotation: false
@@ -46,6 +51,7 @@ Entities:
       Scale: [10.3035135, 0.665079117, 1]
     SpriteRendererComponent:
       Color: [1, 0.488095343, 0, 1]
+      TilingFactor: 1
     Rigidbody2DComponent:
       BodyType: Static
       FixedRotation: false
@@ -65,6 +71,7 @@ Entities:
       Scale: [10.3035154, 0.665079057, 1]
     SpriteRendererComponent:
       Color: [1, 0.488095343, 0, 1]
+      TilingFactor: 1
     Rigidbody2DComponent:
       BodyType: Static
       FixedRotation: false
@@ -84,6 +91,7 @@ Entities:
       Scale: [10.3035173, 0.665079117, 1]
     SpriteRendererComponent:
       Color: [1, 0.488095343, 0, 1]
+      TilingFactor: 1
     Rigidbody2DComponent:
       BodyType: Static
       FixedRotation: false

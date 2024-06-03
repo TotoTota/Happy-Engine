@@ -1,6 +1,2 @@
 C:\Users\thjk\Documents\Happy\Happy\Happy-Engine\Hazelnut\Resources\Scripts\Intermidiates\Debug\Hazel-ScriptCore.csproj.AssemblyReference.cache
 C:\Users\thjk\Documents\Happy\Happy\Happy-Engine\Hazelnut\Resources\Scripts\Intermidiates\Debug\Hazel-ScriptCore.csproj.CoreCompileInputs.cache
-C:\Users\thjk\Documents\Happy\Happy\Happy-Engine\Hazelnut\Resources\Scripts\Intermidiates\Debug\Hazel-ScriptCore.dll
-C:\Users\thjk\Documents\Happy\Happy\Happy-Engine\Hazelnut\Resources\Scripts\Intermidiates\Debug\Hazel-ScriptCore.pdb
-C:\Users\thjk\Documents\Happy\Happy\Happy-Engine\Hazelnut\Resources\Scripts\Hazel-ScriptCore.dll
-C:\Users\thjk\Documents\Happy\Happy\Happy-Engine\Hazelnut\Resources\Scripts\Hazel-ScriptCore.pdb

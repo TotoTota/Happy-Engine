@@ -207,6 +207,9 @@
     <ClInclude Include="src\Hazel\Scripting\ScriptEngine.h">
       <Filter>src\Hazel\Scripting</Filter>
     </ClInclude>
+    <ClInclude Include="src\Hazel\Scripting\ScriptGlue.h">
+      <Filter>src\Hazel\Scripting</Filter>
+    </ClInclude>
     <ClInclude Include="src\Hazel\Utils\PlatformUtils.h">
       <Filter>src\Hazel\Utils</Filter>
     </ClInclude>
@@ -1332,7 +1335,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Hazel\Scripting\ScriptGlue.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Hazel\Core\Application.cpp">
@@ -1419,6 +1421,9 @@
     <ClCompile Include="src\Hazel\Scripting\ScriptEngine.cpp">
       <Filter>src\Hazel\Scripting</Filter>
     </ClCompile>
+    <ClCompile Include="src\Hazel\Scripting\ScriptGlue.cpp">
+      <Filter>src\Hazel\Scripting</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
@@ -1461,6 +1466,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Hazel\Scripting\ScriptGlue.cpp" />
   </ItemGroup>
 </Project>

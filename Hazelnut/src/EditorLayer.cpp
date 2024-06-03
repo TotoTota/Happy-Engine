@@ -374,6 +374,9 @@ namespace Hazel {
 				if (ImGui::MenuItem("Save As...", "Ctrl-Shift-S"))
 					SaveSceneAs();
 
+				if (ImGui::MenuItem("Save", "Ctrl-S"))
+					SaveScene();
+
 				if (ImGui::MenuItem("Exit")) Application::Get().Close();
 				ImGui::EndMenu();
 			}
@@ -597,7 +600,7 @@ namespace Hazel {
 	void EditorLayer::OnEvent(Event& e)
 	{
 		m_CameraController.OnEvent(e);
-		m_EditorCamera.OnEvent(e, m_ViewportHovered);
+		m_EditorCamera.OnEvent(e);
 
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<KeyPressedEvent>(HZ_BIND_EVENT_FN(EditorLayer::OnKeyPressed));
@@ -606,62 +609,76 @@ namespace Hazel {
 
 	bool EditorLayer::OnKeyPressed(KeyPressedEvent& e)
 	{
-		if (e.GetRepeatCount() > 0)
+		// Shortcuts
+		if (e.IsRepeat())
 			return false;
 
 		bool control = Input::IsKeyPressed(Key::LeftControl) || Input::IsKeyPressed(Key::RightControl);
 		bool shift = Input::IsKeyPressed(Key::LeftShift) || Input::IsKeyPressed(Key::RightShift);
+
 		switch (e.GetKeyCode())
 		{
-			case Key::N:
-			{
-				if (control)
-					NewScene();
+		case Key::N:
+		{
+			if (control)
+				NewScene();
 
-				break;
-			}
-			case Key::O:
-			{
-				if (control)
-					OpenScene();
+			break;
+		}
+		case Key::O:
+		{
+			if (control)
+				OpenScene();
 
-				break;
-			}
-			case Key::S:
+			break;
+		}
+		case Key::S:
+		{
+			if (control)
 			{
-				if (control)
-				{
-					if (shift || m_EditorScenepath == std::filesystem::path())
-						SaveSceneAs();
-					else
-						SaveScene();
-				}
-
-				break;
+				if (shift)
+					SaveSceneAs();
+				else
+					SaveScene();
 			}
 
-			// Scene Commands
-			case Key::D:
-			{
-				if (control)
-					OnDuplicateEntity();
+			break;
+		}
 
-				break;
-			}
+		// Scene Commands
+		case Key::D:
+		{
+			if (control)
+				OnDuplicateEntity();
 
-			// Gizmos
-			case Key::Q:
+			break;
+		}
+
+		// Gizmos
+		case Key::Q:
+		{
+			if (!ImGuizmo::IsUsing())
 				m_GizmoType = -1;
-				break;
-			case Key::W:
+			break;
+		}
+		case Key::W:
+		{
+			if (!ImGuizmo::IsUsing())
 				m_GizmoType = ImGuizmo::OPERATION::TRANSLATE;
-				break;
-			case Key::E:
+			break;
+		}
+		case Key::E:
+		{
+			if (!ImGuizmo::IsUsing())
 				m_GizmoType = ImGuizmo::OPERATION::ROTATE;
-				break;
-			case Key::R:
+			break;
+		}
+		case Key::R:
+		{
+			if (!ImGuizmo::IsUsing())
 				m_GizmoType = ImGuizmo::OPERATION::SCALE;
-				break;
+			break;
+		}
 		}
 	}
 
@@ -669,7 +686,7 @@ namespace Hazel {
 	{
 		if (e.GetMouseButton() == Mouse::ButtonLeft)
 		{
-			if (m_ViewportHovered && !ImGuizmo::IsOver() && !Input::IsKeyPressed(KeyCode::LeftAlt) && m_SceneState != SceneState::Play)
+			if (m_ViewportHovered && !ImGuizmo::IsOver() && !Input::IsKeyPressed(Key::LeftAlt) && m_SceneState != SceneState::Play)
 				m_SceneHierarchyPanel.SetSelectedEntity(m_HoveredEntity);
 		}
 		return false;
@@ -726,9 +743,12 @@ namespace Hazel {
 
 		if (Entity selectedEntity = m_SceneHierarchyPanel.GetSelectedEntity())
 		{
-			TransformComponent transform = selectedEntity.GetComponent<TransformComponent>();
+			if (!m_ShowPhysicsColliders)
+			{
+				TransformComponent transform = selectedEntity.GetComponent<TransformComponent>();
 
-			Renderer2D::DrawRect(transform.GetTransform(), glm::vec4(0.2f, 0.3f, 0.8f, 1));
+				Renderer2D::DrawRect(transform.GetTransform(), glm::vec4(0.2f, 0.3f, 0.8f, 1));
+			}
 		}
 
 		Renderer2D::EndScene();

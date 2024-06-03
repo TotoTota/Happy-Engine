@@ -7,6 +7,8 @@
 
 #include "Hazel/Renderer/EditorCamera.h"
 
+#include "Hazel/Events/KeyEvent.h"
+
 #include <imgui/imgui.h>
 
 namespace Hazel {

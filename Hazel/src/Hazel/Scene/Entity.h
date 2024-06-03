@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Scene.h"
 #include "Hazel/Core/UUID.h"
+#include "Scene.h"
 #include "Components.h"
 
 #include "entt.hpp"
@@ -59,9 +59,9 @@ namespace Hazel {
 		UUID GetUUID() { return GetComponent<IDComponent>().ID; }
 		const std::string& GetName() { return GetComponent<TagComponent>().Tag; }
 
-		bool operator==(const Entity& other) const 
-		{ 
-			return m_EntityHandle == other.m_EntityHandle && m_Scene == other.m_Scene; 
+		bool operator==(const Entity& other) const
+		{
+			return m_EntityHandle == other.m_EntityHandle && m_Scene == other.m_Scene;
 		}
 
 		bool operator!=(const Entity& other) const

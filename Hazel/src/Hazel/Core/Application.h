@@ -51,8 +51,9 @@ namespace Hazel {
 		ApplicationCommandLineArgs GetCommandLineArgs() const { return m_CommandLineArgs; }
 
 		virtual bool IsTitlebarHovered() { return false; }
-	private:
+
 		void Run();
+	private:
 		bool OnWindowClose(WindowCloseEvent& e);
 		bool OnWindowResize(WindowResizeEvent& e);
 	private:

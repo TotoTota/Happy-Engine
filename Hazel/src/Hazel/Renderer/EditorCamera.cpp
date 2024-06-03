@@ -26,7 +26,7 @@ namespace Hazel {
 
 	void EditorCamera::UpdateView()
 	{
-		// m_Yaw = m_Pitch = 0.0f; // Lock Camera Rotation
+		// m_Yaw = m_Pitch = 0.0f; // Lock the camera's rotation
 		m_Position = CalculatePosition();
 
 		glm::quat orientation = GetOrientation();
@@ -36,10 +36,10 @@ namespace Hazel {
 
 	std::pair<float, float> EditorCamera::PanSpeed() const
 	{
-		float x = std::min(m_ViewportWidth / 1000.0f, 2.4f);
+		float x = std::min(m_ViewportWidth / 1000.0f, 2.4f); // max = 2.4f
 		float xFactor = 0.0366f * (x * x) - 0.1778f * x + 0.3021f;
 
-		float y = std::min(m_ViewportHeight / 1000.0f, 2.4f);
+		float y = std::min(m_ViewportHeight / 1000.0f, 2.4f); // max = 2.4f
 		float yFactor = 0.0366f * (y * y) - 0.1778f * y + 0.3021f;
 
 		return { xFactor, yFactor };
@@ -55,7 +55,7 @@ namespace Hazel {
 		float distance = m_Distance * 0.2f;
 		distance = std::max(distance, 0.0f);
 		float speed = distance * distance;
-		speed = std::min(speed, 100.0f);
+		speed = std::min(speed, 100.0f); // max speed = 100
 		return speed;
 	}
 
@@ -78,11 +78,10 @@ namespace Hazel {
 		UpdateView();
 	}
 
-	void EditorCamera::OnEvent(Event& e, bool ViewportHovered)
+	void EditorCamera::OnEvent(Event& e)
 	{
 		EventDispatcher dispatcher(e);
-		if (ViewportHovered)
-			dispatcher.Dispatch<MouseScrolledEvent>(HZ_BIND_EVENT_FN(EditorCamera::OnMouseScroll));
+		dispatcher.Dispatch<MouseScrolledEvent>(HZ_BIND_EVENT_FN(EditorCamera::OnMouseScroll));
 	}
 
 	bool EditorCamera::OnMouseScroll(MouseScrolledEvent& e)

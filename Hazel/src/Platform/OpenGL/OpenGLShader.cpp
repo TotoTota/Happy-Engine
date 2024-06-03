@@ -1,5 +1,6 @@
 #include "hzpch.h"
 #include "Platform/OpenGL/OpenGLShader.h"
+#include "Hazel/Core/Timer.h"
 
 #include <fstream>
 #include <glad/glad.h>
@@ -9,8 +10,6 @@
 #include <shaderc/shaderc.hpp>
 #include <spirv_cross/spirv_cross.hpp>
 #include <spirv_cross/spirv_glsl.hpp>
-
-#include "Hazel/Core/Timer.h"
 
 namespace Hazel {
 
@@ -31,8 +30,8 @@ namespace Hazel {
 		{
 			switch (stage)
 			{
-			case GL_VERTEX_SHADER:   return shaderc_glsl_vertex_shader;
-			case GL_FRAGMENT_SHADER: return shaderc_glsl_fragment_shader;
+				case GL_VERTEX_SHADER:   return shaderc_glsl_vertex_shader;
+				case GL_FRAGMENT_SHADER: return shaderc_glsl_fragment_shader;
 			}
 			HZ_CORE_ASSERT(false);
 			return (shaderc_shader_kind)0;
@@ -42,8 +41,8 @@ namespace Hazel {
 		{
 			switch (stage)
 			{
-			case GL_VERTEX_SHADER:   return "GL_VERTEX_SHADER";
-			case GL_FRAGMENT_SHADER: return "GL_FRAGMENT_SHADER";
+				case GL_VERTEX_SHADER:   return "GL_VERTEX_SHADER";
+				case GL_FRAGMENT_SHADER: return "GL_FRAGMENT_SHADER";
 			}
 			HZ_CORE_ASSERT(false);
 			return nullptr;
@@ -66,8 +65,8 @@ namespace Hazel {
 		{
 			switch (stage)
 			{
-			case GL_VERTEX_SHADER:    return ".cached_opengl.vert";
-			case GL_FRAGMENT_SHADER:  return ".cached_opengl.frag";
+				case GL_VERTEX_SHADER:    return ".cached_opengl.vert";
+				case GL_FRAGMENT_SHADER:  return ".cached_opengl.frag";
 			}
 			HZ_CORE_ASSERT(false);
 			return "";
@@ -243,7 +242,7 @@ namespace Hazel {
 			}
 		}
 
-		for (auto&& [stage, data] : shaderData)
+		for (auto&& [stage, data]: shaderData)
 			Reflect(stage, data);
 	}
 

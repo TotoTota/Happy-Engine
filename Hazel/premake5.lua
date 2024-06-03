@@ -33,8 +33,8 @@ project "Hazel"
 	{
 		"src",
 		"vendor/spdlog/include",
-		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Box2D}",
+		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
@@ -48,14 +48,14 @@ project "Hazel"
 
 	links
 	{
-		"GLFW",
 		"Box2D",
+		"GLFW",
 		"Glad",
 		"ImGui",
 		"yaml-cpp",
 		"opengl32.lib",
 
-		"%{Library.mono}"
+		"%{Library.mono}",
 	}
 
 	filter "files:vendor/ImGuizmo/**.cpp"
@@ -64,18 +64,18 @@ project "Hazel"
 	filter "system:windows"
 		systemversion "latest"
 
-		defines 
+		defines
 		{
 		}
 
-		links 
+		links
 		{
 			"%{Library.WinSock}",
 			"%{Library.WinMM}",
 			"%{Library.WinVersion}",
-			"%{Library.BCrypt}"
+			"%{Library.BCrypt}",
 		}
-		
+
 	filter "configurations:Debug"
 		defines "HZ_DEBUG"
 		runtime "Debug"

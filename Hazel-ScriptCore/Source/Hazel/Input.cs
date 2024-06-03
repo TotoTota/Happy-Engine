@@ -1,7 +1,10 @@
-﻿namespace Hazel-ScriptCore.Source.Hazel
+﻿namespace Hazel
 {
-    public class Input
-    {
-        
-    }
+	public class Input
+	{
+		public static bool IsKeyDown(KeyCode keycode)
+		{
+			return InternalCalls.Input_IsKeyDown(keycode);
+		}
+	}
 }

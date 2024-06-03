@@ -4,29 +4,27 @@
 #include "Sandbox2D.h"
 #include "ExampleLayer.h"
 
-class Sandbox : public Hazel::Application
-{
-public:
-	Hazel::Layer* sandbox2D = new Sandbox2D();
-
-	Sandbox(Hazel::ApplicationCommandLineArgs args)
-		: Hazel::Application("Sandbox", false, args)
-	{
-		// PushLayer(new ExampleLayer());
-		PushLayer(sandbox2D);
-	}
-
-	~Sandbox()
-	{
-	}
-
-	bool IsTitlebarHovered() override
-	{
-		return sandbox2D->IsTitlebarHovered();
-	}
-};
-
-Hazel::Application* Hazel::CreateApplication(Hazel::ApplicationCommandLineArgs args)
-{
-	return new Sandbox(args);
-}
+// class Sandbox : public Hazel::Application
+// {
+// public:
+// 	Sandbox()
+// 		: Hazel::Application("Sandbox", false, args)
+// 	{
+// 		// PushLayer(new ExampleLayer());
+// 		PushLayer(new Sandbox2D());
+// 	}
+// 
+// 	~Sandbox()
+// 	{
+// 	}
+// };
+// 
+// Hazel::Application* Hazel::CreateApplication(Hazel::ApplicationCommandLineArgs args)
+// {
+// 	ApplicationSpecification spec;
+// 	spec.Name = "Sandbox";
+// 	spec.WorkingDirectory = "../Hazelnut";
+// 	spec.CommandLineArgs = args;
+// 
+// 	return new Sandbox(spec);
+// }

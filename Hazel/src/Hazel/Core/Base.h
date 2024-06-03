@@ -1,21 +1,21 @@
 #pragma once
 
-#include <memory>
-
 #include "Hazel/Core/PlatformDetection.h"
 
+#include <memory>
+
 #ifdef HZ_DEBUG
-#if defined(HZ_PLATFORM_WINDOWS)
-#define HZ_DEBUGBREAK() __debugbreak()
-#elif defined(HZ_PLATFORM_LINUX)
-#include <signal.h>
-#define HZ_DEBUGBREAK() raise(SIGTRAP)
+	#if defined(HZ_PLATFORM_WINDOWS)
+		#define HZ_DEBUGBREAK() __debugbreak()
+	#elif defined(HZ_PLATFORM_LINUX)
+		#include <signal.h>
+		#define HZ_DEBUGBREAK() raise(SIGTRAP)
+	#else
+		#error "Platform doesn't support debugbreak yet!"
+	#endif
+	#define HZ_ENABLE_ASSERTS
 #else
-#error "Platform doesn't support debugbreak yet!"
-#endif
-#define HZ_ENABLE_ASSERTS
-#else
-#define HZ_DEBUGBREAK()
+	#define HZ_DEBUGBREAK()
 #endif
 
 #define HZ_EXPAND_MACRO(x) x
